@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas2</title>
+</head>
+<body>
+    <h2>Canvas Vjezba 2</h2>
+    <canvas id="myCanvas" width="600" height="600" style="border: 2px solid black;"></canvas>
+    <script>
+
+        let c= document.getElementById("myCanvas");
+        let ctx=c.getContext("2d");
+
+        /*krug */
+        ctx.beginPath();
+        ctx.arc(300,300, 200, 0, 2*Math.PI);
+        ctx.fillStyle= "orange";
+        ctx.fill();
+
+        /*krug */
+        ctx.beginPath();
+        ctx.arc(300,220, 20, 0, 2*Math.PI);
+        ctx.fillStyle= "white";
+        ctx.fill();
+
+        /*crtanje linija*/
+        ctx.beginPath();
+        ctx.moveTo(310,300);
+        ctx.lineTo(500,150);
+        ctx.lineTo(500,500);
+        ctx.lineTo(310,300);
+        ctx.fillStyle="white";
+        ctx.fill();
+
+    </script>
+</body>
+</html>

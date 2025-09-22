@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas1</title>
+</head>
+<body>
+    <h2>Canvas Vjezba 1</h2>
+    <canvas id="myCanvas" width="600" height="600" style="border: 2px solid black;"></canvas>
+    <script>
+
+        let c= document.getElementById("myCanvas");
+        let ctx=c.getContext("2d");
+
+        /*pravokutnik1*/
+        ctx.beginPath();
+        ctx.rect(0,0, 200, 200);
+        ctx.fillStyle= "red";
+        ctx.fill();
+        /*pravokutnik2*/
+        ctx.beginPath();
+        ctx.rect(200,200, 200, 200);
+        ctx.strokeStyle= "gray";
+        ctx.lineWidth=2;
+        ctx.stroke();
+        /*pravokutnik3*/
+        ctx.beginPath();
+        ctx.rect(400,400, 200, 200);
+        ctx.fillStyle= "blue";
+        ctx.fill();
+
+    </script>
+</body>
+</html>
