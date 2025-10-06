@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        table, td{
+            border: 1px solid black;
+        }
+    </style>
 </head>
 <body>
     <svg width="600" height="400" style="border: 4px solid black">
@@ -29,7 +34,38 @@
     <circle cx="475" cy="270" r="4" fill="yellow"  />
     <circle cx="550" cy="50" r="30" fill="gold"  />
     <circle cx="550" cy="50" r="20" fill="yellow"  />
-
 </svg>
+
+    <!-- TABLICA -->
+     <h2>Tablice u html</h2>
+     <table>
+        <tr>
+            <td>Firma</td>
+            <td>Contact</td>
+            <td>Zemlja</td>
+        </tr>
+        <tr>
+            <td>Đuro Đaković</td>
+            <td>Hrko</td>
+            <td>Hrvatska</td>
+        </tr>
+        <tr>
+            <td>Stolarija Lujić</td>
+            <td>Drago</td>
+            <td>Gundinci</td>
+        </tr>
+     </table>
+
+     <!-- FORMS -->
+     <h2>Forms u html</h2>
+     <form action="#" method="get">
+        <label for="">Ime:</label>
+        <input type="text" id="ime" required><br>
+        <label for="prezime">Prezime:</label>
+        <input type="text" id="prezime"><br>
+        <input type="submit" value="Posalji">
+     </form>
+
+
 </body>
 </html>
