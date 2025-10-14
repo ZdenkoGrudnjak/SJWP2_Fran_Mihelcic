@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skriptni jezici</title>
+
+<style>
+
+ nav{
+      display:flex;
+      gap:20px;
+      margin-bottom:18px;
+    }
+    nav a{
+      text-decoration:none;
+      padding:10px 14px;
+      border-radius:6px;
+      background:rgba(17, 194, 179, 0.6);
+      color:#18557e;
+      font-weight:700;
+    }
+    nav a:hover{opacity:0.9;}
+
+    h1{font-size:2.5em; font-weight:700; margin:0 0 12px 0;}
+    h3{margin-top:18px}
+    h2{margin-top:20px}
+
+
+
+body{
+    background-color: #C2F8F6;
+}
+
+h1{
+    size:2.3em;
+    font-weight: bold;
+}
+
+p{
+    margin-left:7px;
+    margin-right:7px;
+    color:rgb(86 86 86);
+}
+
+img{
+    width:480px;
+}
+
+table{
+
+    border: solid grey 1px;
+
+}
+
+td{
+    border:solid grey 1px;
+}
+
+.button{
+    background-color: #C2F8F6;
+    width:50%;
+    border-radius:3px;
+}
+
+.formaa{
+    width:50%;
+    border-radius:3px;
+}
+
+</style>
+
+</head>
+<body>
+
+<nav>
+    <a href="#">Početna</a>
+    <a href="#">O nama</a>
+    <a href="#">Kontakt</a>
+  </nav>
+
+
+    <h1>HTML, CSS, Canvas i SVG</h1>
+
+    <p><em>Canvas</em> je HTML5 element koji, pomoću JavaScript-a, omogućava dinamičko iscrtavanje<br>
+različitih oblika, dodavanje slika, kreiranje animacija na web stranici i sl.<br><br>
+Na platnu (canvas-u) to ne radimo korištenjem novog jezika (kao što je to slučaj kod SVG) ili<br>
+korištenjem Flasha. Najčešće uporabe platna su:<br></p>
+<ul>
+    <li>crtanje grafova,</li>
+    <li>animiranje, igre i</li>
+    <li>kompozicije slike</li>
+</ul>
+<br> <hr> <br>
+<p><b>SVG</b>(Scalable Vector Graphics) grafika ne gubi kvalitetu prilikom zumiranja ili resize-a. <br>
+Svi crteži mogu biti interaktivni i dinamički. Svaki element i atribut SVG datoteke može biti<br>
+animiran. Animacije mogu biti definirane i pokrenute interaktivno ili pomoću skripti.<br><br>
+SVG integrira druge W3C standarde kao što su DOM, XSL …</p>
+<br>
+<hr>
+<br>
+<h3>Usporedba SVG-a i Canvasa</h3>
+<table>
+    <tr>
+        <td><b>SVG</b></td>
+        <td><b>HTML Canvas</b></td>
+    </tr>
+    <tr>
+        <td>SVG ima bolju skalabilnost, tako da može imati bolje slike sa velikom kvalitetom na bilo kojoj rezoluciji</td>
+        <td>Canvas ima lošu skalabilnost, Nije prikladan za rad s velikim rezolucijama</td>
+    </tr>
+    <tr>
+        <td>SVG daje bolje performanse sa manjim brojem objekata ili većom površinom</td>
+        <td>Canvas daje bolje performanse za rad sa manjim površinama ili većim brojem objekata</td>
+    </tr>
+    <tr>
+        <td>SVG se može modificirati uz pomoć skripte i CSS-a</td>
+        <td>Canvas se može modificirati samo uz pomoć skripte</td>
+    </tr>
+    <tr>
+        <td>SVG je baziran na vektorima i sastavljen je od oblika</td>
+        <td>Canvas je baziran na pixelima</td>
+    </tr>
+</table>
+<br>
+
+<img src="zadatakimg.png" alt="slika">
+
+<h2>"Primjer SVG-a i Canvasa</h2>
+
+
+<svg width="400" height="400" style="border: 2px solid black">
+        <polygon points="0,400 400,400 400,300 0,300" style="fill: blue" />
+        <polygon points="70,330 260,330 260,270 70,270" style="fill: brown" />
+        <polygon points="158,270 172,270 172,70 158,70" style="fill: black" />
+        <polygon points="158,250 158,120 100,250" style="fill: white" />
+        <polygon points="172,250 172,120 230,250" style="fill: white" />
+        <polygon points="154,100 154,80 120,90" style="fill: green" />
+        <circle cx="320" cy="70" r="50" fill="yellow"  />
+    </svg>
+
+<canvas id="myCanvas" width="400" height="400" style="border: 2px solid black;"></canvas>
+    <script>
+
+        let c= document.getElementById("myCanvas");
+        let ctx=c.getContext("2d");
+
+
+        ctx.beginPath();
+        ctx.moveTo(0,400);
+        ctx.lineTo(400,400);
+        ctx.lineTo(400,300);
+        ctx.lineTo(0,300);
+        ctx.fillStyle="blue";
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(70,330);
+        ctx.lineTo(260,330);
+        ctx.lineTo(260,270);
+        ctx.lineTo(70,270);
+        ctx.fillStyle="brown";
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(158,270);
+        ctx.lineTo(172,270);
+        ctx.lineTo(172,70);
+        ctx.lineTo(158,70);
+        ctx.fillStyle="black";
+        ctx.fill();
+
+         ctx.beginPath();
+        ctx.moveTo(158,250);
+        ctx.lineTo(158,120);
+        ctx.lineTo(100,250);
+        ctx.fillStyle="white";
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(172,250);
+        ctx.lineTo(172,120);
+        ctx.lineTo(230,250);
+        ctx.fillStyle="white";
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(154,100);
+        ctx.lineTo(154,80);
+        ctx.lineTo(120,90);
+        ctx.fillStyle="green";
+        ctx.fill();
+
+        /*krug */
+        ctx.beginPath();
+        ctx.arc(320,70, 50, 0, 2*Math.PI);
+        ctx.fillStyle= "yellow";
+        ctx.fill();
+
+    </script>
+</body>
+
+
+
+
+
+
+
+<form action="#" method="get">
+        <label for="">Ime:</label>
+        <input class="formaa"  type="text" id="ime" required><br>
+        <label for="prezime">Prezime:</label>
+        <input class="formaa" type="text" id="prezime"><br>
+        <label for="email">Email:</label>
+        <input class="formaa" type="text" id="email"><br>
+        <label for="poruka">Poruka:</label>
+        <input class="formaa" type="text" id="poruka"><br>
+        <input class="button" type="submit" value="Posalji">
+     </form>
+
+
+</body>
+</html>
