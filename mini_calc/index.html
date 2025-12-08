@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculating Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: rgb(107, 43, 43);
+            font-weight: bold;
+            color:rgb(201, 201, 201);
+        }
+        input, select, button {
+            padding: 8px;
+            margin: 5px 0;
+            font-size: 16px;
+            background-color: rgb(119, 69, 69);
+            color:rgb(201, 201, 201);
+        }
+        #result {
+            margin-top: 15px;
+            font-weight: bold;
+            border: solid rgb(80, 32, 32), 5px;
+            text-align:center;
+            padding-top:80px;
+            background-color: rgb(119, 69, 69);
+            height: 100px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Mini Kalkulator</h2>
+
+    <label>Prva brojka:</label><br>
+    <input type="number" id="num1"><br><br>
+
+    <label>Druga brojka:</label><br>
+    <input type="number" id="num2"><br><br>
+
+    <label>Operacija:</label><br>
+
+    <button onclick="calculate('dodaj')">ZBROJ</button>
+    <button onclick="calculate('oduzmi')">ODUZIMANJE</button>
+    <button onclick="calculate('množi')">MNOŽENJE</button>
+    <button onclick="calculate('podjeli')">DIJELJENJE</button>
+    <button onclick="clearEverything()">CE</button><br>
+    
+
+    <p id="result"></p>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
