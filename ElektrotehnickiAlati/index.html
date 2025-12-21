@@ -1,96 +1,347 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ohm's Law</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: rgb(107, 43, 43);
-      color:rgb(201, 201, 201);
-      font-weight: bold;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Električni izračuni</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: rgb(107, 43, 43);
+    color: rgb(201, 201, 201);
+    font-weight: bold;
+  }
 
-    .container {
-      width: 300px;
-      background-color: rgb(119, 69, 69);
-      padding: 20px;
-      margin: 50px auto;
-      border: 2px solid rgb(87, 50, 50);
-    }
+  .container {
+    width: 500px;
+    background-color: rgb(119, 69, 69);
+    padding: 20px;
+    margin: 30px auto;
+    border: 2px solid rgb(87, 50, 50);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-    h2 {
-      text-align: center;
-    }
+  .section-content {
+    flex: 1;
+    margin-right: 10px;
+  }
 
-    label {
-      display: block;
-      margin-top: 10px;
-    }
+  .section-image img {
+  width: 200px; /* Fiksna širina za sve slike */
+  height: auto;
+  display: block;
+}
 
-    input {
-      width: 100%;
-      padding: 5px;
-      margin-top: 5px;
-      box-sizing: border-box;
-      color:rgb(201, 201, 201);
-      background-color: rgb(153, 89, 89);
-    }
+  h2 {
+    text-align: left;
+  }
 
-    button {
-      width: 100%;
-      margin-top: 15px;
-      padding: 8px;
-      border: 2px solid rgb(87, 50, 50);
-      cursor: pointer;
-      font-weight: bold;
-      color:rgb(201, 201, 201);
-      background-color: rgb(112, 64, 64);
-    }
+  label {
+    display: block;
+    margin-top: 10px;
+  }
 
-    .result {
-      margin-top: 15px;
-      padding: 10px;
-      border: 1px dotted rgb(87, 50, 50);
-      text-align: center;
-      font-size: 18px;
-      background-color: rgb(112, 64, 64);
-    }
-  </style>
+  input {
+    width: 100%;
+    padding: 5px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    color: rgb(201, 201, 201);
+    background-color: rgb(153, 89, 89);
+  }
+
+  button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 8px;
+    border: 2px solid rgb(87, 50, 50);
+    cursor: pointer;
+    font-weight: bold;
+    color: rgb(201, 201, 201);
+    background-color: rgb(112, 64, 64);
+  }
+
+  .result {
+    margin-top: 15px;
+    padding: 10px;
+    border: 1px dotted rgb(87, 50, 50);
+    text-align: center;
+    font-size: 18px;
+    background-color: rgb(112, 64, 64);
+  }
+</style>
 </head>
 <body>
 
-  <div class="container">
+<!-- OHMOV ZAKON -->
+<div class="container">
+  <div class="section-content">
     <h2>OHMOV ZAKON</h2>
-
-    <label>U NESI OTPOR (Ω)</label>
-    <input type="number" id="resistance" placeholder="Ω">
-
-    <label>U NESI NAPON (V)</label>
-    <input type="number" id="voltage" placeholder="V">
-
-    <button onclick="calculate()">IZRAČUNAJ STRUJU</button>
-
-    <div class="result" id="result">
-      I = ?
-    </div>
+    <label>UNESI OTPOR (Ω)</label>
+    <input type="number" id="resistance">
+    <label>UNESI NAPON (V)</label>
+    <input type="number" id="voltage">
+    <button onclick="calculateOhm()">IZRAČUNAJ STRUJU</button>
+    <div class="result" id="ohmResult">I = ?</div>
   </div>
+  <div class="section-image">
+    <img src=".\pictures\ohm.png" alt="Ohmov zakon">
+  </div>
+</div>
 
-  <script>
-    function calculate() {
-      const R = parseFloat(document.getElementById("resistance").value);
-      const U = parseFloat(document.getElementById("voltage").value);
+<!-- DJELILO NAPONA -->
+<div class="container">
+  <div class="section-content">
+    <h2>DJELILO NAPONA</h2>
+    <label>PRVI OTPOR R1 (Ω)</label>
+    <input type="number" id="r1_div">
+    <label>DRUGI OTPOR R2 (Ω)</label>
+    <input type="number" id="r2_div">
+    <label>ULAZNI NAPON Uul (V)</label>
+    <input type="number" id="uul">
+    <button onclick="calculateDivider()">IZRAČUNAJ NAPON</button>
+    <div class="result" id="dividerResult">Uizl = ?</div>
+  </div>
+  <div class="section-image">
+    <img src="./pictures/voltage-divider-main-circuit.png" alt="Djelilo napona">
+  </div>
+</div>
 
-      if (isNaN(R) || isNaN(U) || R === 0) {
-        document.getElementById("result").innerText = "Invalid input";
-        return;
-      }
+<!-- SERIJSKO SPAJANJE OTPORNIKA -->
+<div class="container">
+  <div class="section-content">
+    <h2>SERIJSKO SPAJANJE OTPORNIKA</h2>
+    <label>PRVI OTPOR R1 (Ω)</label>
+    <input type="number" id="r1_series">
+    <label>DRUGI OTPOR R2 (Ω)</label>
+    <input type="number" id="r2_series">
+    <button onclick="calculateSeries()">IZRAČUNAJ UKUPNI OTPOR</button>
+    <div class="result" id="seriesResult">Ruk = ?</div>
+  </div>
+  <div class="section-image">
+    <img src=".\pictures\resistorSeries.png" alt="Serijsko spajanje otpornika">
+  </div>
+</div>
 
-      const I = U / R;
-      document.getElementById("result").innerText = "I = " + I.toFixed(2) + " A";
-    }
-  </script>
+<!-- PARALELNO SPAJANJE OTPORNIKA -->
+<div class="container">
+  <div class="section-content">
+    <h2>PARALELNO SPAJANJE OTPORNIKA</h2>
+    <label>PRVI OTPOR R1 (Ω)</label>
+    <input type="number" id="r1_parallel">
+    <label>DRUGI OTPOR R2 (Ω)</label>
+    <input type="number" id="r2_parallel">
+    <button onclick="calculateParallel()">IZRAČUNAJ UKUPNI OTPOR</button>
+    <div class="result" id="parallelResult">Ruk = ?</div>
+  </div>
+  <div class="section-image">
+    <img src=".\pictures\resistorParallel.jpg" alt="Paralelno spajanje otpornika">
+  </div>
+</div>
+
+<!-- SERIJSKO SPAJANJE KONDENZATORA -->
+<div class="container">
+  <div class="section-content">
+    <h2>SERIJSKO SPAJANJE KONDENZATORA</h2>
+    <label>PRVI KONDENZATOR C1 (µF)</label>
+    <input type="number" id="c1_series">
+    <label>DRUGI KONDENZATOR C2 (µF)</label>
+    <input type="number" id="c2_series">
+    <button onclick="calculateCapSeries()">IZRAČUNAJ UKUPNI KAPACITET</button>
+    <div class="result" id="capSeriesResult">Cuk = ?</div>
+  </div>
+  <div class="section-image">
+    <img src=".\pictures\capacitorSeries.png" alt="Serijsko spajanje kondenzatora">
+  </div>
+</div>
+
+<!-- PARALELNO SPAJANJE KONDENZATORA -->
+<div class="container">
+  <div class="section-content">
+    <h2>PARALELNO SPAJANJE KONDENZATORA</h2>
+    <label>PRVI KONDENZATOR C1 (µF)</label>
+    <input type="number" id="c1_parallel">
+    <label>DRUGI KONDENZATOR C2 (µF)</label>
+    <input type="number" id="c2_parallel">
+    <button onclick="calculateCapParallel()">IZRAČUNAJ UKUPNI KAPACITET</button>
+    <div class="result" id="capParallelResult">Cuk = ?</div>
+  </div>
+  <div class="section-image">
+    <img src=".\pictures\capacitorParallel.png" alt="Paralelno spajanje kondenzatora">
+  </div>
+</div>
+
+<!-- SERIJSKO SPAJANJE ZAVOJNICA -->
+<div class="container">
+  <div class="section-content">
+    <h2>SERIJSKO SPAJANJE ZAVOJNICA</h2>
+    <label>PRVA ZAVOJNICA L1 (mH)</label>
+    <input type="number" id="l1_series">
+    <label>DRUGA ZAVOJNICA L2 (mH)</label>
+    <input type="number" id="l2_series">
+    <button onclick="calculateIndSeries()">IZRAČUNAJ UKUPNU INDUKTIVNOST</button>
+    <div class="result" id="indSeriesResult">Luk = ?</div>
+  </div>
+  <div class="section-image">
+    <img src=".\pictures\inductorSeries.jpg" alt="Serijsko spajanje zavojnica">
+  </div>
+</div>
+
+<!-- PARALELNO SPAJANJE ZAVOJNICA -->
+<div class="container">
+  <div class="section-content">
+    <h2>PARALELNO SPAJANJE ZAVOJNICA</h2>
+    <label>PRVA ZAVOJNICA L1 (mH)</label>
+    <input type="number" id="l1_parallel">
+    <label>DRUGA ZAVOJNICA L2 (mH)</label>
+    <input type="number" id="l2_parallel">
+    <button onclick="calculateIndParallel()">IZRAČUNAJ UKUPNU INDUKTIVNOST</button>
+    <div class="result" id="indParallelResult">Luk = ?</div>
+  </div>
+  <div class="section-image">
+    <img src=".\pictures\inductorParallel.webp" alt="Paralelno spajanje zavojnica">
+  </div>
+</div>
+
+<!-- INDUKTIVNOST ZRAČNOG SVITKA -->
+<div class="container">
+  <div class="section-content">
+    <h2>INDUKTIVNOST ZRAČNOG SVITKA</h2>
+    <label>Permeabilnost medija μ (H/m)</label>
+    <input type="number" id="mu" value="0.000001256637" step="any">
+    <label>Broj zavoja Z</label>
+    <input type="number" id="z_turns">
+    <label>Površina poprečnog presjeka S (m²)</label>
+    <input type="number" id="s_area" step="any">
+    <label>Duljina svitka l (m)</label>
+    <input type="number" id="l_length" step="any">
+    <button onclick="calculateAirCoil()">IZRAČUNAJ INDUKTIVNOST</button>
+    <div class="result" id="airCoilResult">L = ?</div>
+  </div>
+  
+</div>
+
+<!-- INDUKTIVNI OTPOR (ω i L) -->
+<div class="container">
+  <div class="section-content">
+    <h2>INDUKTIVNI OTPOR</h2>
+    <label>Induktivnost L (H)</label>
+    <input type="number" id="l_value_omega" step="any">
+    <label>Kutna frekvencija ω (rad/s)</label>
+    <input type="number" id="omega_value" step="any">
+    <button onclick="calculateInductiveResistanceOmega()">IZRAČUNAJ INDUKTIVNI OTPOR</button>
+    <div class="result" id="indResResultOmega">X_L = ?</div>
+  </div>
+  <div class="section-image">
+    <img src=".\pictures\indOt.png" alt="Induktivni otpor">
+  </div>
+</div>
+
+<!-- KAPACITIVNI OTPOR -->
+<div class="container">
+  <div class="section-content">
+    <h2>KAPACITIVNI OTPOR</h2>
+    <label>Kapacitet C (F)</label>
+    <input type="number" id="c_value" step="any">
+    <label>Frekvencija f (Hz)</label>
+    <input type="number" id="fc_value" step="any">
+    <button onclick="calculateCapacitiveResistance()">IZRAČUNAJ KAPACITIVNI OTPOR</button>
+    <div class="result" id="capResResult">X_C = ?</div>
+  </div>
+  
+</div>
+
+<script>
+  function calculateOhm() {
+    const R = parseFloat(resistance.value);
+    const U = parseFloat(voltage.value);
+    if (isNaN(R) || isNaN(U) || R === 0) { ohmResult.innerText = "Neispravan unos"; return; }
+    ohmResult.innerText = "I = " + (U / R).toFixed(2) + " A";
+  }
+
+  function calculateDivider() {
+    const R1 = parseFloat(r1_div.value);
+    const R2 = parseFloat(r2_div.value);
+    const Uul = parseFloat(uul.value);
+    if (isNaN(R1) || isNaN(R2) || isNaN(Uul) || (R1 + R2 === 0)) { dividerResult.innerText = "Neispravan unos"; return; }
+    const Uizl = Uul * (R2 / (R1 + R2));
+    dividerResult.innerText = "Uizl = " + Uizl.toFixed(2) + " V";
+  }
+
+  function calculateSeries() {
+    const R1 = parseFloat(r1_series.value);
+    const R2 = parseFloat(r2_series.value);
+    if (isNaN(R1) || isNaN(R2)) { seriesResult.innerText = "Neispravan unos"; return; }
+    seriesResult.innerText = "Ruk = " + (R1 + R2).toFixed(2) + " Ω";
+  }
+
+  function calculateParallel() {
+    const R1 = parseFloat(r1_parallel.value);
+    const R2 = parseFloat(r2_parallel.value);
+    if (isNaN(R1) || isNaN(R2) || (R1 + R2 === 0)) { parallelResult.innerText = "Neispravan unos"; return; }
+    const Ruk = (R1 * R2) / (R1 + R2);
+    parallelResult.innerText = "Ruk = " + Ruk.toFixed(2) + " Ω";
+  }
+
+  function calculateCapSeries() {
+    const C1 = parseFloat(c1_series.value);
+    const C2 = parseFloat(c2_series.value);
+    if (isNaN(C1) || isNaN(C2) || (C1 + C2 === 0)) { capSeriesResult.innerText = "Neispravan unos"; return; }
+    const Cuk = (C1 * C2) / (C1 + C2);
+    capSeriesResult.innerText = "Cuk = " + Cuk.toFixed(2) + " µF";
+  }
+
+  function calculateCapParallel() {
+    const C1 = parseFloat(c1_parallel.value);
+    const C2 = parseFloat(c2_parallel.value);
+    if (isNaN(C1) || isNaN(C2)) { capParallelResult.innerText = "Neispravan unos"; return; }
+    const Cuk = C1 + C2;
+    capParallelResult.innerText = "Cuk = " + Cuk.toFixed(2) + " µF";
+  }
+
+  function calculateIndSeries() {
+    const L1 = parseFloat(l1_series.value);
+    const L2 = parseFloat(l2_series.value);
+    if (isNaN(L1) || isNaN(L2)) { indSeriesResult.innerText = "Neispravan unos"; return; }
+    indSeriesResult.innerText = "Luk = " + (L1 + L2).toFixed(2) + " mH";
+  }
+
+  function calculateIndParallel() {
+    const L1 = parseFloat(l1_parallel.value);
+    const L2 = parseFloat(l2_parallel.value);
+    if (isNaN(L1) || isNaN(L2) || (L1 + L2 === 0)) { indParallelResult.innerText = "Neispravan unos"; return; }
+    const Luk = (L1 * L2) / (L1 + L2);
+    indParallelResult.innerText = "Luk = " + Luk.toFixed(2) + " mH";
+  }
+
+  function calculateAirCoil() {
+    const muVal = parseFloat(mu.value);
+    const Z = parseFloat(z_turns.value);
+    const S = parseFloat(s_area.value);
+    const l = parseFloat(l_length.value);
+    if (isNaN(muVal) || isNaN(Z) || isNaN(S) || isNaN(l) || l === 0) { airCoilResult.innerText = "Neispravan unos"; return; }
+    const L = muVal * (Z * Z * S) / l;
+    airCoilResult.innerText = "L = " + L.toExponential(6) + " H";
+  }
+
+  function calculateInductiveResistanceOmega() {
+    const L = parseFloat(document.getElementById("l_value_omega").value);
+    const omega = parseFloat(document.getElementById("omega_value").value);
+    if (isNaN(L) || isNaN(omega)) { indResResultOmega.innerText = "Neispravan unos"; return; }
+    const XL = omega * L;
+    indResResultOmega.innerText = "X_L = " + XL.toFixed(2) + " Ω";
+  }
+
+  function calculateCapacitiveResistance() {
+    const C = parseFloat(document.getElementById("c_value").value);
+    const f = parseFloat(document.getElementById("fc_value").value);
+    if (isNaN(C) || isNaN(f) || C === 0) { capResResult.innerText = "Neispravan unos"; return; }
+    const XC = 1 / (2 * Math.PI * f * C);
+    capResResult.innerText = "X_C = " + XC.toFixed(2) + " Ω";
+  }
+</script>
 
 </body>
 </html>
