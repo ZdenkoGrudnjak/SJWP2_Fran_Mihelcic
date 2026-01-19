@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weight Converter</title>
+</head>
+<body>
+
+  <h2>Weight Converter</h2>
+  <p>Type a value in the Kilograms field to convert:</p>
+
+  <p>
+    <label>Kilograms</label>
+    <input
+      type="number"
+      placeholder="Kilograms"
+      oninput="weightConverter(this.value)">
+  </p>
+
+  <p>Pounds: <span id="outputPounds"></span></p>
+  <p>Ounces: <span id="outputOunces"></span></p>
+  <p>Grams: <span id="outputGrams"></span></p>
+
+  <script src="Wc.js"></script>
+</body>
+</html>
