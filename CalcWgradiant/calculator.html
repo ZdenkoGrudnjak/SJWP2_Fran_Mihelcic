@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #8b5cf6, #6366f1, #10b981, #34d399);
+            padding: 20px;
+        }
+
+        .calculator {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            width: 300px;
+        }
+
+        .display {
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: right;
+            min-height: 100px;
+        }
+
+        .previous {
+            font-size: 16px;
+            color: #888;
+            min-height: 20px;
+            margin-bottom: 8px;
+        }
+
+        .current {
+            font-size: 36px;
+            color: #333;
+            min-height: 44px;
+            word-wrap: break-word;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            background: #f0f0f0;
+            border: none;
+            border-radius: 8px;
+            padding: 20px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #e0e0e0;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .span-two {
+            grid-column: span 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="display">
+            <div class="previous" id="prev"></div>
+            <div class="current" id="curr">0</div>
+        </div>
+        <div class="buttons">
+            <button class="span-two" onclick="clearCalc()">AC</button>
+            <button onclick="del()">DEL</button>
+            <button onclick="operation('÷')">÷</button>
+            <button onclick="number('7')">7</button>
+            <button onclick="number('8')">8</button>
+            <button onclick="number('9')">9</button>
+            <button onclick="operation('×')">×</button>
+            <button onclick="number('4')">4</button>
+            <button onclick="number('5')">5</button>
+            <button onclick="number('6')">6</button>
+            <button onclick="operation('-')">-</button>
+            <button onclick="number('1')">1</button>
+            <button onclick="number('2')">2</button>
+            <button onclick="number('3')">3</button>
+            <button onclick="operation('+')">+</button>
+            <button class="span-two" onclick="number('0')">0</button>
+            <button onclick="number('.')">.</button>
+            <button onclick="equals()">=</button>
+        </div>
+    </div>
+
+    <script>
+        let current = '0';
+        let previous = '';
+        let op = '';
+
+        function updateDisplay() {
+            document.getElementById('curr').textContent = current;
+            document.getElementById('prev').textContent = previous;
+        }
+
+        function clearCalc() {
+            current = '0';
+            previous = '';
+            op = '';
+            updateDisplay();
+        }
+
+        function del() {
+            if (current === '0') return;
+            current = current.slice(0, -1) || '0';
+            updateDisplay();
+        }
+
+        function number(n) {
+            if (n === '.' && current.includes('.')) return;
+            current = current === '0' && n !== '.' ? n : current + n;
+            updateDisplay();
+        }
+
+        function operation(o) {
+            if (previous && current !== '0') equals();
+            op = o;
+            previous = current + ' ' + o;
+            current = '0';
+            updateDisplay();
+        }
+
+        function equals() {
+            if (!op || !previous) return;
+            let a = parseFloat(previous);
+            let b = parseFloat(current);
+            let result;
+
+            if (op === '+') result = a + b;
+            else if (op === '-') result = a - b;
+            else if (op === '×') result = a * b;
+            else if (op === '÷') result = b === 0 ? 'Error' : a / b;
+
+            if (result === 'Error') {
+                current = 'Error';
+                setTimeout(clearCalc, 1500);
+            } else {
+                current = String(Math.round(result * 100000000) / 100000000);
+            }
+            
+            previous = '';
+            op = '';
+            updateDisplay();
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key >= '0' && e.key <= '9') number(e.key);
+            if (e.key === '.') number('.');
+            if (e.key === '+' || e.key === '-') operation(e.key);
+            if (e.key === '*') operation('×');
+            if (e.key === '/') { e.preventDefault(); operation('÷'); }
+            if (e.key === 'Enter' || e.key === '=') equals();
+            if (e.key === 'Escape') clearCalc();
+            if (e.key === 'Backspace') del();
+        });
+    </script>
+</body>
+</html>
