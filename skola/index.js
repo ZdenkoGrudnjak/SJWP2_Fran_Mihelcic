@@ -1,16 +1,25 @@
 import inquirer from 'inquirer';
+import fs from 'fs';
 
 inquirer
   .prompt([
    {
     type: "input",
     name: "ime",
-    message:"Unesi ime",
+    message:"Unesi ime:",
    },
+   {
+    type:"number",
+    name:"ocjena",
+    message:"Unesite ocjenu"
+   }
 
   ])
   .then((answers) => {
-    // Use user feedback for... whatever!!
+    const tekst = `Ime: ${answers.ime}, ocjena: ${answers.ocjena} \n`;
+
+    fs.appendFileSync("ucenici.txt", tekst);
+    console.log("Podaci su spremljeni.");
   })
   .catch((error) => {
     if (error.isTtyError) {
