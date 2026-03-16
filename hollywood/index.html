@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FranovaFilmskaBanka</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+
+  <header class="site-header">
+    <div class="logo">
+      <div class="logo-mark"><span>◈</span></div>
+      <span class="logo-text">Franova<em>Filmska</em>Banka</span>
+    </div>
+    <nav class="nav-tabs">
+      <button class="tab-btn active" data-category="filmovi">
+        <span class="tab-icon">🎬</span> Filmovi
+      </button>
+      <button class="tab-btn" data-category="serije">
+        <span class="tab-icon">📺</span> Serije
+      </button>
+      <button class="tab-btn" data-category="dokumentarci">
+        <span class="tab-icon">🎥</span> Dokumentarci
+      </button>
+    </nav>
+  </header>
+
+  <div class="hero-strip">
+    <div class="hero-eyebrow" id="heroEyebrow">Kolekcija</div>
+    <div class="hero-label" id="heroLabel">Filmovi</div>
+    <div class="hero-count" id="heroCount"></div>
+  </div>
+
+
+  <main class="gallery-section">
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </main>
+
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+      <button class="modal-close" id="modalClose">✕</button>
+      <div class="modal-poster" id="modalPoster"></div>
+      <div class="modal-content">
+        <div class="modal-badge" id="modalBadge"></div>
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <p class="modal-desc" id="modalDesc"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
