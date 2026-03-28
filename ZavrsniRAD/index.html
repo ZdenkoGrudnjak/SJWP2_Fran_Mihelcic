@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zabavno Učenje Kviz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .category-card {
+            transition: all 0.3s ease;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .option-btn {
+            transition: all 0.2s ease;
+        }
+        
+        .option-btn:hover:not(:disabled) {
+            transform: translateX(10px);
+            background-color: #f3f4f6;
+        }
+        
+        .option-btn.correct {
+            background-color: #10b981;
+            color: white;
+            border-color: #10b981;
+        }
+        
+        .option-btn.wrong {
+            background-color: #ef4444;
+            color: white;
+            border-color: #ef4444;
+        }
+        
+        .timer-bar {
+            transition: width 1s linear;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            animation: confetti-fall 3s ease-out forwards;
+            z-index: 1000;
+        }
+        
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header class="text-white p-4 shadow-lg">
+        <div class="max-w-4xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <i data-lucide="brain" class="w-8 h-8"></i>
+                <h1 class="text-2xl font-bold">Zabavno Učenje</h1>
+            </div>
+            <div class="text-sm opacity-90">Uči kroz igru!</div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto p-4 mt-8">
+        
+        <div id="start-screen" class="glass-effect rounded-3xl p-8 shadow-2xl fade-in">
+            <div class="text-center mb-8">
+                <div class="inline-block p-4 bg-purple-100 rounded-full mb-4 pulse">
+                    <i data-lucide="graduation-cap" class="w-12 h-12 text-purple-600"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Dobrodošli u Kviz!</h2>
+                <p class="text-gray-600">Odaberite kategoriju i testirajte svoje znanje. Svaka točna odgovor donosi bodove, a brzina se nagrađuje bonusom!</p>
+            </div>
+
+            <div class="mb-6 flex justify-center">
+                <button onclick="showStatistics()" class="bg-white hover:bg-purple-50 text-purple-700 font-semibold py-3 px-6 rounded-xl border-2 border-purple-200 transition-all flex items-center gap-2 shadow-md">
+                    <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
+                    Pogledaj Statistiku
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <button onclick="startQuiz('znanost')" class="category-card bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-2xl border-2 border-blue-200 text-left">
+                    <div class="flex items-center gap-4">
+                        <div class="p-3 bg-blue-500 rounded-xl text-white">
+                            <i data-lucide="flask-conical" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-blue-900">Znanost</h3>
+                            <p class="text-sm text-blue-700">Biologija, kemija, fizika</p>
+                        </div>
+                    </div>
+                </button>
+
+                <button onclick="startQuiz('povijest')" class="category-card bg-gradient-to-br from-amber-50 to-amber-100 p-6 rounded-2xl border-2 border-amber-200 text-left">
+                    <div class="flex items-center gap-4">
+                        <div class="p-3 bg-amber-600 rounded-xl text-white">
+                            <i data-lucide="landmark" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-amber-900">Povijest</h3>
+                            <p class="text-sm text-amber-700">Svjetska i hrvatska povijest</p>
+                        </div>
+                    </div>
+                </button>
+
+                <button onclick="startQuiz('geografija')" class="category-card bg-gradient-to-br from-emerald-50 to-emerald-100 p-6 rounded-2xl border-2 border-emerald-200 text-left">
+                    <div class="flex items-center gap-4">
+                        <div class="p-3 bg-emerald-600 rounded-xl text-white">
+                            <i data-lucide="globe" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-emerald-900">Geografija</h3>
+                            <p class="text-sm text-emerald-700">Države, glavni gradovi, priroda</p>
+                        </div>
+                    </div>
+                </button>
+
+                <button onclick="startQuiz('opce')" class="category-card bg-gradient-to-br from-rose-50 to-rose-100 p-6 rounded-2xl border-2 border-rose-200 text-left">
+                    <div class="flex items-center gap-4">
+                        <div class="p-3 bg-rose-600 rounded-xl text-white">
+                            <i data-lucide="lightbulb" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-rose-900">Opća kultura</h3>
+                            <p class="text-sm text-rose-700">Film, glazba, umjetnost, sport</p>
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <div id="quiz-screen" class="hidden glass-effect rounded-3xl p-6 md:p-8 shadow-2xl">
+            <div class="flex justify-between items-center mb-6">
+                <div class="flex items-center gap-2">
+                    <span id="current-question-num" class="font-bold text-purple-600 text-lg">1</span>
+                    <span class="text-gray-400">/</span>
+                    <span id="total-questions" class="text-gray-600">10</span>
+                </div>
+                <div class="flex items-center gap-2 bg-purple-100 px-4 py-2 rounded-full">
+                    <i data-lucide="trophy" class="w-5 h-5 text-purple-600"></i>
+                    <span id="score-display" class="font-bold text-purple-700">0</span>
+                    <span class="text-purple-600 text-sm">bodova</span>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <div class="flex justify-between text-sm mb-2">
+                    <span class="text-gray-600">Preostalo vrijeme</span>
+                    <span id="timer-text" class="font-bold text-gray-800">30s</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                    <div id="timer-bar" class="timer-bar bg-gradient-to-r from-purple-500 to-pink-500 h-full rounded-full" style="width: 100%"></div>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h3 id="question-text" class="text-xl md:text-2xl font-bold text-gray-800 leading-relaxed">
+                    Učitavanje pitanja...
+                </h3>
+            </div>
+
+            <div id="options-container" class="grid grid-cols-1 gap-3">
+            </div>
+
+            <div class="mt-6 flex justify-end">
+                <button id="next-btn" onclick="nextQuestion()" class="hidden bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-xl transition-all flex items-center gap-2 shadow-lg">
+                    Dalje
+                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="results-screen" class="hidden glass-effect rounded-3xl p-8 shadow-2xl text-center fade-in">
+            <div class="mb-6">
+                <div id="result-icon" class="inline-block p-6 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-full mb-4">
+                    <i data-lucide="crown" class="w-16 h-16 text-yellow-600"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Kviz Završen! 🎉</h2>
+                <p id="result-message" class="text-gray-600">Odlično odrađeno!</p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6 mb-8 shadow-inner">
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="text-center p-4 bg-purple-50 rounded-xl">
+                        <div class="text-2xl font-bold text-purple-600" id="final-score">0</div>
+                        <div class="text-sm text-purple-700">Bodova</div>
+                    </div>
+                    <div class="text-center p-4 bg-blue-50 rounded-xl">
+                        <div class="text-2xl font-bold text-blue-600" id="correct-answers">0/10</div>
+                        <div class="text-sm text-blue-700">Točnih</div>
+                    </div>
+                    <div class="text-center p-4 bg-green-50 rounded-xl">
+                        <div class="text-2xl font-bold text-green-600" id="accuracy">0%</div>
+                        <div class="text-sm text-green-700">Točnost</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <button onclick="restartQuiz()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg">
+                    <i data-lucide="rotate-ccw" class="w-5 h-5"></i>
+                    Igraj Ponovno
+                </button>
+                <button onclick="goHome()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-8 rounded-xl transition-all flex items-center justify-center gap-2">
+                    <i data-lucide="home" class="w-5 h-5"></i>
+                    Početna
+                </button>
+                <button onclick="showStatistics()" class="bg-blue-100 hover:bg-blue-200 text-blue-800 font-bold py-3 px-8 rounded-xl transition-all flex items-center justify-center gap-2">
+                    <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
+                    Statistika
+                </button>
+            </div>
+        </div>
+
+        <div id="statistics-screen" class="hidden glass-effect rounded-3xl p-6 md:p-8 shadow-2xl fade-in">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+                    <i data-lucide="bar-chart-2" class="w-8 h-8 text-purple-600"></i>
+                    Tvoja Statistika
+                </h2>
+                <button onclick="closeStatistics()" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                    <i data-lucide="x" class="w-6 h-6 text-gray-600"></i>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+                <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-xl text-center">
+                    <div class="text-3xl font-bold text-purple-600 mb-1" id="stat-total-quizzes">0</div>
+                    <div class="text-xs text-purple-800 uppercase tracking-wide font-semibold">Ukupno kvizova</div>
+                </div>
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-xl text-center">
+                    <div class="text-3xl font-bold text-blue-600 mb-1" id="stat-avg-score">0</div>
+                    <div class="text-xs text-blue-800 uppercase tracking-wide font-semibold">Prosječni rezultat</div>
+                </div>
+                <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-4 rounded-xl text-center">
+                    <div class="text-3xl font-bold text-yellow-600 mb-1" id="stat-best-score">0</div>
+                    <div class="text-xs text-yellow-800 uppercase tracking-wide font-semibold">Najbolji rezultat</div>
+                </div>
+                <div class="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-xl text-center">
+                    <div class="text-3xl font-bold text-green-600 mb-1" id="stat-accuracy">0%</div>
+                    <div class="text-xs text-green-800 uppercase tracking-wide font-semibold">Točnost</div>
+                </div>
+                <div class="bg-gradient-to-br from-rose-50 to-rose-100 p-4 rounded-xl text-center">
+                    <div class="text-2xl font-bold text-rose-600 mb-1" id="stat-fav-category">-</div>
+                    <div class="text-xs text-rose-800 uppercase tracking-wide font-semibold">Najigranija kategorija</div>
+                </div>
+                <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-4 rounded-xl text-center">
+                    <div class="text-2xl font-bold text-indigo-600 mb-1" id="stat-total-correct">0/0</div>
+                    <div class="text-xs text-indigo-800 uppercase tracking-wide font-semibold">Točnih odgovora</div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-bold text-gray-800 flex items-center gap-2">
+                        <i data-lucide="history" class="w-5 h-5"></i>
+                        Povijest kvizova
+                    </h3>
+                    <button onclick="clearHistory()" class="text-sm text-red-500 hover:text-red-700 flex items-center gap-1 px-3 py-1 rounded-lg hover:bg-red-50 transition-colors">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        Obriši povijest
+                    </button>
+                </div>
+                <div id="history-list" class="space-y-3 max-h-80 overflow-y-auto pr-2">
+                </div>
+            </div>
+
+            <div class="flex justify-center">
+                <button onclick="closeStatistics()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-xl transition-all flex items-center gap-2 shadow-lg">
+                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    Natrag na početnu
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="text-white text-center p-4 mt-12 opacity-80">
+        <p class="text-sm">Zabavno Učenje Kviz - Uči s radošću!</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
