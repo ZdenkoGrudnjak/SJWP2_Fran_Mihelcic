@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generator PDF-a - Osobni podaci</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Node.js + PDFKit</p>
+        <h1>Generator PDF dokumenta</h1>
+        <p class="subtitle">Unesi osobne podatke, provjeri format i preuzmi uredan PDF dokument.</p>
+      </div>
+      <div class="hero-card">
+        <span>PDF</span>
+        <strong>Automatsko generiranje</strong>
+      </div>
+    </section>
+
+    <section class="form-card">
+      <div class="card-header">
+        <h2>Osobni podaci</h2>
+        <p>Polja označena zvjezdicom su obavezna.</p>
+      </div>
+
+      <div id="warningBox" class="warning-box hidden"></div>
+
+      <form id="personalForm" novalidate>
+        <div class="grid">
+          <div class="field">
+            <label for="ime">Ime *</label>
+            <input type="text" id="ime" name="ime" placeholder="npr. Fran" />
+            <small></small>
+          </div>
+
+          <div class="field">
+            <label for="prezime">Prezime *</label>
+            <input type="text" id="prezime" name="prezime" placeholder="npr. Mihelčić" />
+            <small></small>
+          </div>
+
+          <div class="field">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" placeholder="npr. fran@email.com" />
+            <small></small>
+          </div>
+
+          <div class="field">
+            <label for="telefon">Telefon *</label>
+            <input type="text" id="telefon" name="telefon" placeholder="npr. +385 91 123 4567" />
+            <small></small>
+          </div>
+
+          <div class="field">
+            <label for="oib">OIB *</label>
+            <input type="text" id="oib" name="oib" maxlength="11" placeholder="11 znamenki" />
+            <small></small>
+          </div>
+
+          <div class="field">
+            <label for="datumRodenja">Datum rođenja *</label>
+            <input type="date" id="datumRodenja" name="datumRodenja" />
+            <small></small>
+          </div>
+
+          <div class="field full">
+            <label for="adresa">Adresa *</label>
+            <input type="text" id="adresa" name="adresa" placeholder="npr. Ulica grada Vukovara 10" />
+            <small></small>
+          </div>
+
+          <div class="field full">
+            <label for="grad">Grad *</label>
+            <input type="text" id="grad" name="grad" placeholder="npr. Zagreb" />
+            <small></small>
+          </div>
+
+          <div class="field full">
+            <label for="napomena">Napomena</label>
+            <textarea id="napomena" name="napomena" rows="4" placeholder="Opcionalna napomena..."></textarea>
+            <small></small>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="reset" class="secondary">Očisti formu</button>
+          <button type="submit" class="primary">Generiraj PDF</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

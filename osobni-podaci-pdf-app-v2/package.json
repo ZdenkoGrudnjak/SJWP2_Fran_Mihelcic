@@ -1,0 +1,14 @@
+{
+  "name": "osobni-podaci-pdf-app",
+  "version": "2.0.0",
+  "description": "Web aplikacija za unos osobnih podataka i generiranje PDF dokumenta.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "pdfkit": "^0.15.0"
+  }
+}
