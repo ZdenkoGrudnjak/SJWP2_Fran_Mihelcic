@@ -67,7 +67,7 @@ const quizData = {
         { question: "Koji je najveći jezero u Africi?", options: ["Tanganika", "Malawi", "Viktorija", "Albert"], correct: 2, explanation: "Viktorijino jezero je najveće afričko jezero i treće najveće slatkovodno jezero na svijetu." }
     ],
     opce: [
-        { question: "Tko je napisao 'Krim i kaznu'?", options: ["Tolstoj", "Dostojevski", "Gogolj", "Čehov"], correct: 1, explanation: "Fjodor Dostojevski napisao je Zločin i kaznu 1866. – psihološki roman o grijehu i iskupljenju." },
+        { question: "Tko je napisao 'Zločin i kaznu'?", options: ["Tolstoj", "Dostojevski", "Gogolj", "Čehov"], correct: 1, explanation: "Fjodor Dostojevski napisao je Zločin i kaznu 1866. – psihološki roman o grijehu i iskupljenju." },
         { question: "Koji sport se igra na Wimbledonskom turniru?", options: ["Golf", "Tenis", "Kriket", "Ragbi"], correct: 1, explanation: "Wimbledon je najstariji i najprestižniji teniski turnir – igra se od 1877. na travnjaku u Londonu." },
         { question: "Koja je valuta Japana?", options: ["Yuan", "Won", "Jen", "Rupee"], correct: 2, explanation: "Japanski jen (¥) je valuta Japana. Yuan je kineski, Won korejski, a Rupija indijska valuta." },
         { question: "Koliko tipki ima standardna klavijatura (piano)?", options: ["66", "76", "88", "96"], correct: 2, explanation: "Standardni klavir ima 88 tipki – 52 bijele i 36 crnih, u rasponu od A0 do C8." },
